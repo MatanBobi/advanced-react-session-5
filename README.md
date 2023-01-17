@@ -2,7 +2,7 @@
 
 ## Step 1
 
-Verify our app doesn't have any warnings or errors in the cnosole log at first startup.
+Verify our app doesn't have any warnings or errors in the cnosole log at first startup, if there are, fix them.
 
 ## Step 2
 
