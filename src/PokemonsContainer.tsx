@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useDeferredValue, useEffect, useState } from "react";
 import { matchSorter } from "match-sorter";
 import { Header } from "./Header";
 import { PokemonItem } from "./PokemonItem";
@@ -10,6 +10,7 @@ export function PokemonsContainer() {
   const [caughtPokemons, setCaughtPokemons] = useState<Pokemon[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const { isOnline } = useNetworkStatus();
+  const deferredSearchTerm = useDeferredValue(searchTerm);
 
   useEffect(() => {
     async function getPokemons() {
@@ -53,12 +54,13 @@ export function PokemonsContainer() {
         pokemonsLength={pokemons.length}
         searchTerm={searchTerm}
         onChangeSearch={setSearchTerm}
+        isTransitionInProgress={deferredSearchTerm !== searchTerm}
       />
       <>
         {visiblePokemons.map((pokemon) => {
           return (
             <PokemonItem
-              searchTerm={searchTerm}
+              searchTerm={deferredSearchTerm}
               key={pokemon.name}
               pokemon={pokemon}
               onChange={handlePokemonCaught}
