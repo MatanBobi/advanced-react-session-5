@@ -17,30 +17,33 @@ export const PokemonItem = memo(function ({
     .toLowerCase()
     .indexOf(searchTerm.toLowerCase());
   return (
-    <div className="pokemon-row">
-      <Link to={`/pokemon/${pokemon.name}`}>
-        {matchesFilterAtIndex >= 0 && searchTerm !== "" ? (
-          <>
-            {pokemon.name.substring(0, matchesFilterAtIndex)}
-            <span className="highlight">
-              {pokemon.name.substring(
-                matchesFilterAtIndex,
-                matchesFilterAtIndex + searchTerm.length
-              )}
-            </span>
-            {pokemon.name.substring(matchesFilterAtIndex + searchTerm.length)}
-          </>
-        ) : (
-          pokemon.name
-        )}
-      </Link>
-      <input
-        type="checkbox"
-        checked={isCaught}
-        onChange={() => {
-          onChange(pokemon, !isCaught);
-        }}
-      />
-    </div>
+    <Link
+      to={`/pokemons/${pokemon.name}`}
+      className="px-4 py-5 border-t border-t-slate-300 hover:bg-slate-200 font-medium dark:border-t-gray-600 dark:text-white dark:hover:bg-gray-700 dark:bg-gray-800 flex items-center justify-between"
+    >
+      {matchesFilterAtIndex >= 0 && searchTerm !== "" ? (
+        <div>
+          {pokemon.name.substring(0, matchesFilterAtIndex)}
+          <span className="bg-pink-500">
+            {pokemon.name.substring(
+              matchesFilterAtIndex,
+              matchesFilterAtIndex + searchTerm.length
+            )}
+          </span>
+          {pokemon.name.substring(matchesFilterAtIndex + searchTerm.length)}
+        </div>
+      ) : (
+        pokemon.name
+      )}
+      <div className="flex gap-2">
+        <input
+          type="checkbox"
+          checked={isCaught}
+          onChange={() => {
+            onChange(pokemon, !isCaught);
+          }}
+        />
+      </div>
+    </Link>
   );
 });

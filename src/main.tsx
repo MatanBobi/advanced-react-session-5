@@ -1,14 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
+import { PokemonPage } from "./PokemonPage";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "pokemons/:pokemonName",
+        element: <PokemonPage />,
+      },
+    ],
+  },
+]);
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <RouterProvider router={router}>
       <App />
-    </BrowserRouter>
+    </RouterProvider>
   </React.StrictMode>,
   document.getElementById("root") as HTMLElement
 );
